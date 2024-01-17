@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h2>Login</h2>
+    <form id="loginForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br>
+
+        <button type="button" onclick="login()">Login</button>
+    </form>
+
+    <script>
+        function login() {
+            // Implement AJAX request to send login details to the server
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            // Replace the following with actual AJAX request using a library like Axios or Fetch
+            // Example using Fetch:
+            fetch('/authenticate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userName: username,
+                    userPassword: password
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response, e.g., store JWT token in localStorage
+                console.log('JWT Token:', data.jwtToken);
+                // Redirect to user or admin dashboard based on roles
+                window.location.href = data.user.role[0].roleName === 'Admin' ? '/admindashboard' : '/userdashboard';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>

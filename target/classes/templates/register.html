@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <div class="container">
+        <div class="message" th:if="${message != null}">
+           [[${message}]]
+        </div>
+        <h2>Registration Form</h2>
+        <form th:action="@{/registerNewUser}" method="post" th:object="${user}">
+            <div class="form-group">
+                <label for="userName">UserName:</label>
+                <input th:field="*{userName}" type="text" id="userName" name="userName" placeholder="Enter your userName" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="userFirstName">UserFirstName:</label>
+                <input th:field="*{userFirstName}" type="text" id="userFirstName" name="userFirstName" placeholder="Enter your userFirstName" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="userLastName">UserLastName:</label>
+                <input th:field="*{userLastName}" type="text" id="userLastName" name="userLastName" placeholder="Enter your userLastName" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="userPassword">Password:</label>
+                <input th:field="*{userPassword}" type="password" id="userPassword" name="userPassword" placeholder="Enter your password" required>
+            </div>
+            
+            <!-- Remove the userRole input field, as the role should be set in the backend -->
+
+            <input type="submit" value="Register">
+            <p><a th:href="@{/login}">Login_page</a></p> 
+        </form>
+    </div>
+</body>
+</html>
